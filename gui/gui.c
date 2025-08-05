@@ -27,5 +27,5 @@ void gui_init(struct gui_t *gui) {
 	gameloop_add_runner(runner, gui);
 }
 
-void gui_deinit(void) {
+void gui_deinit(struct gui_t *gui) {
 }

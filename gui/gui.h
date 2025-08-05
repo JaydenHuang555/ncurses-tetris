@@ -9,6 +9,6 @@ struct gui_t {
 };
 
 extern void gui_init(struct gui_t*);
-extern u0 gui_deinit(u0);
+extern u0 gui_deinit(struct gui_t*);
 
 #endif
