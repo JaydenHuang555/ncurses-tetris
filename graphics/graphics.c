@@ -78,13 +78,13 @@ void graphics_end(struct graphics_t *graphics) {
 	delwin(graphics->g_drawing_window);
 }
 
-static u8 contains_rec(struct rectangle_t *rec) {
+static u8 contains_rec(struct graphics_t *graphics, struct rectangle_t *rec) {
 	size_t s;
 	u8 err = 0;
-	SYNC(g_thread_lock, {s = g_rec_size;});
+	SYNC(graphics->g_thread_lock, {s = graphics->g_rec_size;});
 	for(size_t i = 0; i < s; i++) {
-		SYNC(g_thread_lock, {
-			if(g_rec[i] == rec) {
+		SYNC(graphics->g_thread_lock, {
+			if(graphics->g_rec[i] == rec) {
 				err = 1;
 				break;
 			}
