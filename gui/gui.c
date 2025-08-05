@@ -24,7 +24,7 @@ static int runner(void *raw) {
 
 void gui_init(struct gui_t *gui) {
 	init_drop_frame(gui);	
-	gameloop_add_runner(runner, gui);
+	gameloop_add_runner(&gameloop, runner, gui);
 }
 
 void gui_deinit(struct gui_t *gui) {
