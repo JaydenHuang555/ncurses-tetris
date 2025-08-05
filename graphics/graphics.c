@@ -16,7 +16,6 @@ static void *update_callback(void *arg) {
 	struct graphics_t *graphics = (struct graphics_t*)arg;
 	while(graphics->g_redrawing_thread_running) {
 		SYNC(*graphics->g_ncurses_mutex, wclear(graphics->g_drawing_window););
-		// wclear(g_drawing_window);
 		SYNC(graphics->g_thread_lock, {
 			for(size_t i = 0; i < graphics->g_rec_size; i++) 
 				if(graphics->g_rec[i]->filled) 
@@ -25,9 +24,7 @@ static void *update_callback(void *arg) {
 		});
 		SYNC(*graphics->g_ncurses_mutex, {
 			wrefresh(graphics->g_drawing_window);
-			// usleep(FPS_60);
 		});
-		// wrefresh(g_drawing_window);
 		usleep(FPS_60);
 	}
 	return arg;
