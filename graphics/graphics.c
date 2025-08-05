@@ -12,50 +12,50 @@
 #define STARTED g_rec
 #define FPS_60 16000 
 
-static struct rectangle_t **g_rec = 0;
-static size_t g_rec_size = 0, g_rec_cap = 0;
-static pthread_t g_redrawing_thread;
-static pthread_mutex_t g_thread_lock = PTHREAD_MUTEX_INITIALIZER, *g_ncurses_mutex;
-static volatile s8 g_redrawing_thread_running = 0;
-static WINDOW *g_drawing_window = 0;
+// static struct rectangle_t **g_rec = 0;
+// static size_t g_rec_size = 0, g_rec_cap = 0;
+// static pthread_t g_redrawing_thread;
+// static pthread_mutex_t g_thread_lock = PTHREAD_MUTEX_INITIALIZER, *g_ncurses_mutex;
+// static volatile s8 g_redrawing_thread_running = 0;
+// static WINDOW *g_drawing_window = 0;
 
-static void *update_callback(void *arg) {
-	while(g_redrawing_thread_running) {
-		SYNC(*g_ncurses_mutex, wclear(g_drawing_window););
-		// wclear(g_drawing_window);
-		SYNC(g_thread_lock, {
-			for(size_t i = 0; i < g_rec_size; i++) 
-				if(g_rec[i]->filled) 
-					SYNC(*g_ncurses_mutex, rectangle_draw_filled(g_rec[i], g_drawing_window));
-				else SYNC(*g_ncurses_mutex, rectangle_draw_border(g_rec[i], g_drawing_window));
-		});
-		SYNC(*g_ncurses_mutex, {
-			wrefresh(g_drawing_window);
-			// usleep(FPS_60);
-		});
-		// wrefresh(g_drawing_window);
-		usleep(FPS_60);
-	}
-	return arg;
-}
+// static void *update_callback(void *arg) {
+// 	while(g_redrawing_thread_running) {
+// 		SYNC(*g_ncurses_mutex, wclear(g_drawing_window););
+// 		// wclear(g_drawing_window);
+// 		SYNC(g_thread_lock, {
+// 			for(size_t i = 0; i < g_rec_size; i++) 
+// 				if(g_rec[i]->filled) 
+// 					SYNC(*g_ncurses_mutex, rectangle_draw_filled(g_rec[i], g_drawing_window));
+// 				else SYNC(*g_ncurses_mutex, rectangle_draw_border(g_rec[i], g_drawing_window));
+// 		});
+// 		SYNC(*g_ncurses_mutex, {
+// 			wrefresh(g_drawing_window);
+// 			// usleep(FPS_60);
+// 		});
+// 		// wrefresh(g_drawing_window);
+// 		usleep(FPS_60);
+// 	}
+// 	return arg;
+// }
 
-void graphics_start(pthread_mutex_t *ncurses_mutex) {
+void graphics_start(struct graphics_t *graphics, pthread_mutex_t *ncurses_mutex) {
 	COLORPAIRS_INIT();
-	g_ncurses_mutex = ncurses_mutex;
-	g_rec_cap = 10;
-	g_rec = (struct rectangle_t**)malloc(sizeof(struct rectangle_t*) * g_rec_cap);
-	if(!g_rec) {
+	graphics->g_ncurses_mutex = ncurses_mutex;
+	graphics->g_rec_cap = 10;
+	graphics->g_rec = (struct rectangle_t**)malloc(sizeof(struct rectangle_t*) * graphics->g_rec_cap);
+	if(!graphics->g_rec) {
 		perror("unable to malloc rectangle buffer\n");
 		raise(SIGINT);
 	}
-	g_drawing_window = newwin(LINES, COLS, 0, 0);
-	if(!g_drawing_window) {
+	graphics->g_drawing_window = newwin(LINES, COLS, 0, 0);
+	if(!graphics->g_drawing_window) {
 		perror("unable to create drawing window");
 		raise(SIGINT);
 	}
-	g_redrawing_thread_running = 1;
-	if(pthread_create(&g_redrawing_thread, 0, update_callback, 0)) {
-		g_redrawing_thread_running = !g_redrawing_thread_running;
+	graphics->g_redrawing_thread_running = 1;
+	if(pthread_create(&graphics->g_redrawing_thread, 0, update_callback, graphics)) {
+		graphics->g_redrawing_thread_running = 0; 
 		perror("unable to create the redrawing thread\n");
 		raise(SIGINT);
 	}
