@@ -14,5 +14,6 @@ enum build_type_t {
 
 extern pthread_mutex_t ncurses_mutex;
 
+extern struct gameloop_t gameloop;
 
 #endif

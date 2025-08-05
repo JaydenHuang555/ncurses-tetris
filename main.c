@@ -11,7 +11,7 @@
 pthread_mutex_t ncurses_mutex = PTHREAD_MUTEX_INITIALIZER;
 
 static struct gui_t gui;
-static struct gameloop_t gameloop;
+struct gameloop_t gameloop;
 
 static int handle_end(s32 exit_code) {
 	graphics_end();

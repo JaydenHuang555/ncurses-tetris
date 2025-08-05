@@ -12,6 +12,8 @@
 
 #define FRAME_DELAY_USEC 16667
 
+pthread_mutex_t gameloop_g_thread_lock = PTHREAD_MUTEX_INITIALIZER;
+
 static void *callback(void *arg) {
 	struct gameloop_t *gameloop = (struct gameloop_t*)arg;
 	while(atomic_load(&gameloop->g_is_loop_thread_running)) {
