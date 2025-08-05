@@ -93,26 +93,26 @@ static u8 contains_rec(struct graphics_t *graphics, struct rectangle_t *rec) {
 	return err;
 }
 
-void graphics_register_rectangle(struct rectangle_t *rec) {
-	if(contains_rec(rec)) {
+void graphics_register_rectangle(struct graphics_t *graphics, struct rectangle_t *rec) {
+	if(contains_rec(graphics, rec)) {
 		perror("can't add more than one of the same rectangle obj\n");
 		raise(SIGINT);
 	}
-	SYNC(g_thread_lock, {
-		g_rec[g_rec_size++] = rec;
+	SYNC(graphics->g_thread_lock, {
+		graphics->g_rec[graphics->g_rec_size++] = rec;
 	});
-	u8 want_resize = g_rec_size == g_rec_cap;
+	u8 want_resize = graphics->g_rec_size == graphics->g_rec_cap;
 	if(want_resize) {
-		g_rec_cap *= 2;
-		struct rectangle_t **next = (struct rectangle_t**)malloc(sizeof(struct rectangle_t*) * g_rec_cap);
+		graphics->g_rec_cap *= 2;
+		struct rectangle_t **next = (struct rectangle_t**)malloc(sizeof(struct rectangle_t*) * graphics->g_rec_cap);
 		if(!next) {
 			perror("unable to malloc next buffer for regrowing\n");
 			raise(SIGINT);
 		}
-		SYNC(g_thread_lock, {
-			for(size_t i = 0; i < g_rec_size; i++) next[i] = g_rec[i];
-			free(g_rec);
-			g_rec = next;
+		SYNC(graphics->g_thread_lock, {
+			for(size_t i = 0; i < graphics->g_rec_size; i++) next[i] = graphics->g_rec[i];
+			free(graphics->g_rec);
+			graphics->g_rec = next;
 		});
 	}
 }
