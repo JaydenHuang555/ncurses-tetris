@@ -12,13 +12,6 @@
 #define STARTED g_rec
 #define FPS_60 16000 
 
-// static struct rectangle_t **g_rec = 0;
-// static size_t g_rec_size = 0, g_rec_cap = 0;
-// static pthread_t g_redrawing_thread;
-// static pthread_mutex_t g_thread_lock = PTHREAD_MUTEX_INITIALIZER, *g_ncurses_mutex;
-// static volatile s8 g_redrawing_thread_running = 0;
-// static WINDOW *g_drawing_window = 0;
-
 static void *update_callback(void *arg) {
 	struct graphics_t *graphics = (struct graphics_t*)arg;
 	while(graphics->g_redrawing_thread_running) {
