@@ -62,20 +62,20 @@ void graphics_start(struct graphics_t *graphics, pthread_mutex_t *ncurses_mutex)
 	}
 }
 
-void graphics_end(void) {
-	SYNC(g_thread_lock, {g_redrawing_thread_running = 0;});
+void graphics_end(struct graphics_t *graphics) {
+	SYNC(graphics->g_thread_lock, {graphics->g_redrawing_thread_running = 0;});
 	
-	pthread_join(g_redrawing_thread, 0);
-	pthread_mutex_destroy(&g_thread_lock);	
+	pthread_join(graphics->g_redrawing_thread, 0);
+	pthread_mutex_destroy(&graphics->g_thread_lock);	
 
-	if(g_rec) {
-		for(size_t i = 0; i < g_rec_size; i++)
-			if(g_rec[i]) rectangle_free(&g_rec[i]);
-		free(g_rec);
-		g_rec = 0;
+	if(graphics->g_rec) {
+		for(size_t i = 0; i < graphics->g_rec_size; i++)
+			if(graphics->g_rec[i]) rectangle_free(&graphics->g_rec[i]);
+		free(graphics->g_rec);
+		graphics->g_rec = 0;
 	}
 	
-	delwin(g_drawing_window);
+	delwin(graphics->g_drawing_window);
 }
 
 static u8 contains_rec(struct rectangle_t *rec) {
