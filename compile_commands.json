@@ -8,7 +8,28 @@
       "-Igraphics",
       "-Iloops",
       "-Icommon",
-      "-I/home/jay/tetris",
+      "-I/home/jay/ncurses-tetris",
+      "-Wextra",
+      "-pedantic",
+      "-pthread",
+      "-o",
+      "tetris",
+      "./common/smalloc.c"
+    ],
+    "directory": "/home/jay/ncurses-tetris",
+    "file": "/home/jay/ncurses-tetris/common/smalloc.c",
+    "output": "/home/jay/ncurses-tetris/tetris"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-Wall",
+      "-Iutils",
+      "-Igraphics",
+      "-Iloops",
+      "-Icommon",
+      "-I/home/jay/ncurses-tetris",
       "-Wextra",
       "-pedantic",
       "-pthread",
@@ -16,9 +37,9 @@
       "tetris",
       "./main.c"
     ],
-    "directory": "/home/jay/tetris",
-    "file": "/home/jay/tetris/main.c",
-    "output": "/home/jay/tetris/tetris"
+    "directory": "/home/jay/ncurses-tetris",
+    "file": "/home/jay/ncurses-tetris/main.c",
+    "output": "/home/jay/ncurses-tetris/tetris"
   },
   {
     "arguments": [
@@ -29,7 +50,7 @@
       "-Igraphics",
       "-Iloops",
       "-Icommon",
-      "-I/home/jay/tetris",
+      "-I/home/jay/ncurses-tetris",
       "-Wextra",
       "-pedantic",
       "-pthread",
@@ -37,9 +58,9 @@
       "tetris",
       "./gui/gui.c"
     ],
-    "directory": "/home/jay/tetris",
-    "file": "/home/jay/tetris/gui/gui.c",
-    "output": "/home/jay/tetris/tetris"
+    "directory": "/home/jay/ncurses-tetris",
+    "file": "/home/jay/ncurses-tetris/gui/gui.c",
+    "output": "/home/jay/ncurses-tetris/tetris"
   },
   {
     "arguments": [
@@ -50,7 +71,7 @@
       "-Igraphics",
       "-Iloops",
       "-Icommon",
-      "-I/home/jay/tetris",
+      "-I/home/jay/ncurses-tetris",
       "-Wextra",
       "-pedantic",
       "-pthread",
@@ -58,9 +79,9 @@
       "tetris",
       "./loops/inputloop.c"
     ],
-    "directory": "/home/jay/tetris",
-    "file": "/home/jay/tetris/loops/inputloop.c",
-    "output": "/home/jay/tetris/tetris"
+    "directory": "/home/jay/ncurses-tetris",
+    "file": "/home/jay/ncurses-tetris/loops/inputloop.c",
+    "output": "/home/jay/ncurses-tetris/tetris"
   },
   {
     "arguments": [
@@ -71,7 +92,7 @@
       "-Igraphics",
       "-Iloops",
       "-Icommon",
-      "-I/home/jay/tetris",
+      "-I/home/jay/ncurses-tetris",
       "-Wextra",
       "-pedantic",
       "-pthread",
@@ -79,9 +100,9 @@
       "tetris",
       "./loops/gameloop.c"
     ],
-    "directory": "/home/jay/tetris",
-    "file": "/home/jay/tetris/loops/gameloop.c",
-    "output": "/home/jay/tetris/tetris"
+    "directory": "/home/jay/ncurses-tetris",
+    "file": "/home/jay/ncurses-tetris/loops/gameloop.c",
+    "output": "/home/jay/ncurses-tetris/tetris"
   },
   {
     "arguments": [
@@ -92,7 +113,7 @@
       "-Igraphics",
       "-Iloops",
       "-Icommon",
-      "-I/home/jay/tetris",
+      "-I/home/jay/ncurses-tetris",
       "-Wextra",
       "-pedantic",
       "-pthread",
@@ -100,9 +121,9 @@
       "tetris",
       "./graphics/rec.c"
     ],
-    "directory": "/home/jay/tetris",
-    "file": "/home/jay/tetris/graphics/rec.c",
-    "output": "/home/jay/tetris/tetris"
+    "directory": "/home/jay/ncurses-tetris",
+    "file": "/home/jay/ncurses-tetris/graphics/rec.c",
+    "output": "/home/jay/ncurses-tetris/tetris"
   },
   {
     "arguments": [
@@ -113,7 +134,7 @@
       "-Igraphics",
       "-Iloops",
       "-Icommon",
-      "-I/home/jay/tetris",
+      "-I/home/jay/ncurses-tetris",
       "-Wextra",
       "-pedantic",
       "-pthread",
@@ -121,9 +142,9 @@
       "tetris",
       "./graphics/graphics.c"
     ],
-    "directory": "/home/jay/tetris",
-    "file": "/home/jay/tetris/graphics/graphics.c",
-    "output": "/home/jay/tetris/tetris"
+    "directory": "/home/jay/ncurses-tetris",
+    "file": "/home/jay/ncurses-tetris/graphics/graphics.c",
+    "output": "/home/jay/ncurses-tetris/tetris"
   },
   {
     "arguments": [
@@ -134,7 +155,7 @@
       "-Igraphics",
       "-Iloops",
       "-Icommon",
-      "-I/home/jay/tetris",
+      "-I/home/jay/ncurses-tetris",
       "-Wextra",
       "-pedantic",
       "-pthread",
@@ -142,8 +163,8 @@
       "tetris",
       "./graphics/rectangle.c"
     ],
-    "directory": "/home/jay/tetris",
-    "file": "/home/jay/tetris/graphics/rectangle.c",
-    "output": "/home/jay/tetris/tetris"
+    "directory": "/home/jay/ncurses-tetris",
+    "file": "/home/jay/ncurses-tetris/graphics/rectangle.c",
+    "output": "/home/jay/ncurses-tetris/tetris"
   }
 ]

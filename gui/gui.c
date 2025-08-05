@@ -3,14 +3,14 @@
 #include "gameloop.h"
 #include "threadutils.h"
 #include "graphics.h"
-
+#include "tetris.h"
 
 static void init_drop_frame(struct gui_t *gui) {
 	gui->drop_frame = rectangle_malloc_with_cords(5, 10, 30, 30); 
 	gui->drop_frame->filled = 0;
 	gui->drop_frame->color = COLORPAIR_DEFAULT;
 	gui->drop_frame->visibile = 1;
-	graphics_register_rectangle(gui->drop_frame);
+	graphics_register_rectangle(&graphics, gui->drop_frame);
 }
 
 static int runner(void *raw) {
