@@ -1,0 +1,149 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-Wall",
+      "-Iutils",
+      "-Igraphics",
+      "-Iloops",
+      "-Icommon",
+      "-I/home/jay/tetris",
+      "-Wextra",
+      "-pedantic",
+      "-pthread",
+      "-o",
+      "tetris",
+      "./main.c"
+    ],
+    "directory": "/home/jay/tetris",
+    "file": "/home/jay/tetris/main.c",
+    "output": "/home/jay/tetris/tetris"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-Wall",
+      "-Iutils",
+      "-Igraphics",
+      "-Iloops",
+      "-Icommon",
+      "-I/home/jay/tetris",
+      "-Wextra",
+      "-pedantic",
+      "-pthread",
+      "-o",
+      "tetris",
+      "./gui/gui.c"
+    ],
+    "directory": "/home/jay/tetris",
+    "file": "/home/jay/tetris/gui/gui.c",
+    "output": "/home/jay/tetris/tetris"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-Wall",
+      "-Iutils",
+      "-Igraphics",
+      "-Iloops",
+      "-Icommon",
+      "-I/home/jay/tetris",
+      "-Wextra",
+      "-pedantic",
+      "-pthread",
+      "-o",
+      "tetris",
+      "./loops/inputloop.c"
+    ],
+    "directory": "/home/jay/tetris",
+    "file": "/home/jay/tetris/loops/inputloop.c",
+    "output": "/home/jay/tetris/tetris"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-Wall",
+      "-Iutils",
+      "-Igraphics",
+      "-Iloops",
+      "-Icommon",
+      "-I/home/jay/tetris",
+      "-Wextra",
+      "-pedantic",
+      "-pthread",
+      "-o",
+      "tetris",
+      "./loops/gameloop.c"
+    ],
+    "directory": "/home/jay/tetris",
+    "file": "/home/jay/tetris/loops/gameloop.c",
+    "output": "/home/jay/tetris/tetris"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-Wall",
+      "-Iutils",
+      "-Igraphics",
+      "-Iloops",
+      "-Icommon",
+      "-I/home/jay/tetris",
+      "-Wextra",
+      "-pedantic",
+      "-pthread",
+      "-o",
+      "tetris",
+      "./graphics/rec.c"
+    ],
+    "directory": "/home/jay/tetris",
+    "file": "/home/jay/tetris/graphics/rec.c",
+    "output": "/home/jay/tetris/tetris"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-Wall",
+      "-Iutils",
+      "-Igraphics",
+      "-Iloops",
+      "-Icommon",
+      "-I/home/jay/tetris",
+      "-Wextra",
+      "-pedantic",
+      "-pthread",
+      "-o",
+      "tetris",
+      "./graphics/graphics.c"
+    ],
+    "directory": "/home/jay/tetris",
+    "file": "/home/jay/tetris/graphics/graphics.c",
+    "output": "/home/jay/tetris/tetris"
+  },
+  {
+    "arguments": [
+      "/usr/bin/gcc",
+      "-c",
+      "-Wall",
+      "-Iutils",
+      "-Igraphics",
+      "-Iloops",
+      "-Icommon",
+      "-I/home/jay/tetris",
+      "-Wextra",
+      "-pedantic",
+      "-pthread",
+      "-o",
+      "tetris",
+      "./graphics/rectangle.c"
+    ],
+    "directory": "/home/jay/tetris",
+    "file": "/home/jay/tetris/graphics/rectangle.c",
+    "output": "/home/jay/tetris/tetris"
+  }
+]
