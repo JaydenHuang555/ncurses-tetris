@@ -19,25 +19,26 @@
 // static volatile s8 g_redrawing_thread_running = 0;
 // static WINDOW *g_drawing_window = 0;
 
-// static void *update_callback(void *arg) {
-// 	while(g_redrawing_thread_running) {
-// 		SYNC(*g_ncurses_mutex, wclear(g_drawing_window););
-// 		// wclear(g_drawing_window);
-// 		SYNC(g_thread_lock, {
-// 			for(size_t i = 0; i < g_rec_size; i++) 
-// 				if(g_rec[i]->filled) 
-// 					SYNC(*g_ncurses_mutex, rectangle_draw_filled(g_rec[i], g_drawing_window));
-// 				else SYNC(*g_ncurses_mutex, rectangle_draw_border(g_rec[i], g_drawing_window));
-// 		});
-// 		SYNC(*g_ncurses_mutex, {
-// 			wrefresh(g_drawing_window);
-// 			// usleep(FPS_60);
-// 		});
-// 		// wrefresh(g_drawing_window);
-// 		usleep(FPS_60);
-// 	}
-// 	return arg;
-// }
+static void *update_callback(void *arg) {
+	struct graphics_t *graphics = (struct graphics_t*)arg;
+	while(graphics->g_redrawing_thread_running) {
+		SYNC(*graphics->g_ncurses_mutex, wclear(graphics->g_drawing_window););
+		// wclear(g_drawing_window);
+		SYNC(graphics->g_thread_lock, {
+			for(size_t i = 0; i < graphics->g_rec_size; i++) 
+				if(graphics->g_rec[i]->filled) 
+					SYNC(*graphics->g_ncurses_mutex, rectangle_draw_filled(graphics->g_rec[i], graphics->g_drawing_window));
+				else SYNC(*graphics->g_ncurses_mutex, rectangle_draw_border(graphics->g_rec[i], graphics->g_drawing_window));
+		});
+		SYNC(*graphics->g_ncurses_mutex, {
+			wrefresh(graphics->g_drawing_window);
+			// usleep(FPS_60);
+		});
+		// wrefresh(g_drawing_window);
+		usleep(FPS_60);
+	}
+	return arg;
+}
 
 void graphics_start(struct graphics_t *graphics, pthread_mutex_t *ncurses_mutex) {
 	COLORPAIRS_INIT();
