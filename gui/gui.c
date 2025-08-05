@@ -3,7 +3,7 @@
 #include "gameloop.h"
 #include "threadutils.h"
 #include "graphics.h"
-
+#include "tetris.h"
 
 static void init_drop_frame(struct gui_t *gui) {
 	gui->drop_frame = rectangle_malloc_with_cords(5, 10, 30, 30); 
@@ -24,7 +24,7 @@ static int runner(void *raw) {
 
 void gui_init(struct gui_t *gui) {
 	init_drop_frame(gui);	
-	gameloop_add_runner(runner, gui);
+	gameloop_add_runner(&gameloop, runner, gui);
 }
 
 void gui_deinit(void) {
