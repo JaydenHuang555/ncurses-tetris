@@ -1,4 +1,3 @@
-
 #include "stdlib.h"
 #include <unistd.h>
 #include <pthread.h>
@@ -12,23 +11,14 @@
 
 #define FRAME_DELAY_USEC 16667
 
-static pthread_t g_loop_thread;
 pthread_mutex_t gameloop_g_thread_lock = PTHREAD_MUTEX_INITIALIZER;
-static atomic_short g_is_loop_thread_running = 0;
 
-struct gameloop_runner_exec_t {
-	gameloop_runner_t runner;
-	void *args;
-	struct gameloop_runner_exec_t *next;
-};
-
-static struct gameloop_runner_exec_t *head = 0, *tail = 0;
-
-void *gameloop(void *arg) {
-	while(atomic_load(&g_is_loop_thread_running)) {
+static void *callback(void *arg) {
+	struct gameloop_t *gameloop = (struct gameloop_t*)arg;
+	while(atomic_load(&gameloop->g_is_loop_thread_running)) {
 		SYNC(gameloop_g_thread_lock, {
 			struct gameloop_runner_exec_t *next;
-			next = head;
+			next = gameloop->head;
 			while(next) {
 				next->runner(next->args);
 				next = next->next;
@@ -43,16 +33,18 @@ static int gameloop_runner_dummy(u0 *raw) {
 	return 0;
 }
 
-void gameloop_start(void) {
-	atomic_store(&g_is_loop_thread_running, 0);
-	if(pthread_create(&g_loop_thread, 0, gameloop, 0)) {
+void gameloop_start(struct gameloop_t *gameloop) {
+	gameloop->head = 0;
+	gameloop->tail = 0;
+	atomic_store(&gameloop->g_is_loop_thread_running, 0);
+	if(pthread_create(&gameloop->g_loop_thread, 0, callback, gameloop)) {
 		perror("unable to create gameloop thread\n");
 		raise(SIGINT);
 	}
-	gameloop_add_runner(gameloop_runner_dummy, 0);	
+	gameloop_add_runner(gameloop, gameloop_runner_dummy, 0);	
 }
 
-void gameloop_add_runner(gameloop_runner_t runner, void *args) {
+void gameloop_add_runner(struct gameloop_t *gameloop, gameloop_runner_t runner, void *args) {
 	SYNC(gameloop_g_thread_lock, {
 		struct gameloop_runner_exec_t *next = malloc(sizeof(struct gameloop_runner_exec_t));		
 		if(!next) {
@@ -62,24 +54,24 @@ void gameloop_add_runner(gameloop_runner_t runner, void *args) {
 		next->next = 0;
 		next->runner = runner;
 		next->args = args;
-		if(!head) {
-			head = next;
-			tail = head;
+		if(!gameloop->head) {
+			gameloop->head = next;
+			gameloop->tail = gameloop->head;
 		}
 		else {
-			tail->next = next;
-			tail = tail->next;
+			gameloop->tail->next = next;
+			gameloop->tail = gameloop->tail->next;
 		}
 	});
 }
 
-void gameloop_end(void) {
-	atomic_store(&g_is_loop_thread_running, 0);
-	if(pthread_join(g_loop_thread, 0)) {
+void gameloop_end(struct gameloop_t *gameloop) {
+	atomic_store(&gameloop->g_is_loop_thread_running, 0);
+	if(pthread_join(gameloop->g_loop_thread, 0)) {
 		raise(SIGINT);
 	}
 	pthread_mutex_destroy(&gameloop_g_thread_lock);
-	struct gameloop_runner_exec_t *next = head;
+	struct gameloop_runner_exec_t *next = gameloop->head;
 	while(next) {
 		struct gameloop_runner_exec_t *to_free = next;
 		next = next->next;

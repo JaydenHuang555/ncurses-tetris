@@ -12,11 +12,12 @@ pthread_mutex_t ncurses_mutex = PTHREAD_MUTEX_INITIALIZER;
 
 static struct gui_t gui;
 struct graphics_t graphics;
+struct gameloop_t gameloop;
 
 static int handle_end(s32 exit_code) {
 	graphics_end(&graphics);
 	gui_deinit(&gui);
-	gameloop_end();
+	gameloop_end(&gameloop);
 	endwin();
 	return exit_code;
 }
@@ -38,10 +39,9 @@ static u0 start_scrn(u0) {
 	clear();
 	graphics_start(&graphics, &ncurses_mutex);
 	refresh();
-	gameloop_start();
+	gameloop_start(&gameloop);
 
 	gui_init(&gui);
-	// rectangle_draw(rec);
 }
 
 s32 main(s32 argc, s8 **argv) {

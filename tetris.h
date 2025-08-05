@@ -3,6 +3,7 @@
 
 #include "pthread.h"
 #include "graphics.h"
+#include "gameloop.h"
 
 #define VERSION 0.3
 
@@ -15,5 +16,6 @@ enum build_type_t {
 
 extern pthread_mutex_t ncurses_mutex;
 extern struct graphics_t graphics;
+extern struct gameloop_t gameloop;
 
 #endif
