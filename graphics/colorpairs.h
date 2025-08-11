@@ -18,10 +18,9 @@ enum colorpair_t {
 
 #define COLORPAIR_ATTR(win, colorpair, block) \
 do { \
-	wattron(win, COLOR_PAIR(colorpair)); \
-	block; \
-	wattroff(win, COLOR_PAIR(colorpair));\
+   wattron(win, COLOR_PAIR(colorpair)); \
+   block; \
+   wattroff(win, COLOR_PAIR(colorpair));\
 } while (0)
-
 
 #endif

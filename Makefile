@@ -13,5 +13,8 @@ debug:
 run:
 	make build
 	./tetris
+run-debug:
+	make debug
+	./debugserver.sh
 bear:
 	bear -- $(CC) -Wall $(LARGS) -Wextra -pedantic -pthread -l$(LIBS) $(SRC) -no-pie -o $(NAME)

@@ -12,7 +12,7 @@
 #define STARTED g_rec
 #define FPS_60 16000 
 
-static void *update_callback(void *arg) {
+static u0 *update_callback(void *arg) {
 	struct graphics_t *graphics = (struct graphics_t*)arg;
 	while(graphics->redrawing_thread_running) {
 		SYNC(*graphics->ncurses_mutex, wclear(graphics->drawing_window););
@@ -30,7 +30,7 @@ static void *update_callback(void *arg) {
 	return arg;
 }
 
-void graphics_start(struct graphics_t *graphics, pthread_mutex_t *ncurses_mutex) {
+u0 graphics_start(struct graphics_t *graphics, pthread_mutex_t *ncurses_mutex) {
 	COLORPAIRS_INIT();
 	graphics->ncurses_mutex = ncurses_mutex;
 	graphics->rec_cap = 10;
@@ -52,7 +52,7 @@ void graphics_start(struct graphics_t *graphics, pthread_mutex_t *ncurses_mutex)
 	}
 }
 
-void graphics_end(struct graphics_t *graphics) {
+u0 graphics_end(struct graphics_t *graphics) {
 	SYNC(graphics->thread_lock, {graphics->redrawing_thread_running = 0;});
 	
 	pthread_join(graphics->redrawing_thread, 0);
@@ -95,6 +95,8 @@ void graphics_register_rectangle(struct graphics_t *graphics, struct rectangle_t
 	if(want_resize) {
 		graphics->rec_cap *= 2;
 		struct rectangle_t **next = (struct rectangle_t**)malloc(sizeof(struct rectangle_t*) * graphics->rec_cap);
+		for(size_t i = 0; i < graphics->rec_cap; i++)
+			next[i] = 0;
 		if(!next) {
 			perror("unable to malloc next buffer for regrowing\n");
 			raise(SIGINT);

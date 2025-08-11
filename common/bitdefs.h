@@ -1,6 +1,8 @@
 #ifndef COMMON_H
 #define COMMON_H
 
+#include "stddef.h"
+
 typedef void u0;
 typedef void s0;
 

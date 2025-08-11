@@ -29,19 +29,14 @@ static void *callback(void *arg) {
 	return arg;
 }
 
-static int gameloop_runner_dummy(u0 *raw) {
-	return 0;
-}
-
 void gameloop_start(struct gameloop_t *gameloop) {
 	gameloop->head = 0;
 	gameloop->tail = 0;
-	atomic_store(&gameloop->g_is_loop_thread_running, 0);
+	atomic_store(&gameloop->g_is_loop_thread_running, 1);
 	if(pthread_create(&gameloop->g_loop_thread, 0, callback, gameloop)) {
 		perror("unable to create gameloop thread\n");
 		raise(SIGINT);
 	}
-	gameloop_add_runner(gameloop, gameloop_runner_dummy, 0);	
 }
 
 void gameloop_add_runner(struct gameloop_t *gameloop, gameloop_runner_t runner, void *args) {

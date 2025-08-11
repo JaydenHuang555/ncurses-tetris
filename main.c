@@ -8,6 +8,14 @@
 #include "gui/gui.h"
 #include "threadutils.h"
 
+#ifndef __linux__
+#warning "compiling for untested env"
+#endif
+
+#ifdef __WIN32
+#err "does not compile for windows, please contact @JaydenHuang555 to send u an windows copy"
+#endif
+
 pthread_mutex_t ncurses_mutex = PTHREAD_MUTEX_INITIALIZER;
 
 static struct gui_t gui;
@@ -23,11 +31,10 @@ static int handle_end(s32 exit_code) {
 }
 
 static void handle_sigint(s32 catch) {
-	handle_end(139);
+	handle_end(catch * 0 + 139);
 }
 
 static u0 start_scrn(u0) {
-	// LOG("---------------------------------------------------------------------------- STARTING SCREEN ---------------------------------------------------------------------------- ");
 	initscr();
 	noecho();
 	keypad(stdscr, 1);
@@ -44,7 +51,7 @@ static u0 start_scrn(u0) {
 	gui_init(&gui);
 }
 
-s32 main(s32 argc, s8 **argv) {
+s32 main(u0) {
 	start_scrn();
 	signal(SIGINT, handle_sigint);	
 	s32 exit = inputloop(handle_end);
