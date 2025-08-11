@@ -13,19 +13,26 @@ static void init_drop_frame(struct gui_t *gui) {
 	graphics_register_rectangle(&graphics, gui->drop_frame);
 }
 
+static void init_help_frame(struct gui_t *gui) {
+	gui->next_block_frame = rectangle_malloc_with_cords(5, 31, 10, 40);
+	gui->next_block_frame->filled = 0;
+	gui->next_block_frame->color = COLORPAIR_DEFAULT;
+	gui->next_block_frame->visibile = 1;
+	graphics_register_rectangle(&graphics, gui->next_block_frame);
+}
+
 static int runner(void *raw) {
 	struct gui_t *gui = (struct gui_t*)raw;
 	SYNC(gameloop_g_thread_lock, {
-		gui->drop_frame->y1++;
-		gui->drop_frame->y2++;
 	});
 	return 0;
 }
 
 void gui_init(struct gui_t *gui) {
 	init_drop_frame(gui);	
+	init_help_frame(gui);
 	gameloop_add_runner(&gameloop, runner, gui);
 }
 
-void gui_deinit(struct gui_t *gui) {
+void gui_deinit(struct gui_t *_gui) {
 }

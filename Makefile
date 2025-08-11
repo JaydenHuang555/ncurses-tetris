@@ -10,5 +10,8 @@ build:
 	$(CC) -Wall $(LARGS) -Wextra -pedantic -pthread -l$(LIBS) $(SRC) -no-pie -o $(NAME)	
 debug:
 	$(CC) -Wall $(LARGS) -Wextra -pedantic -pthread -l$(LIBS) $(SRC) -g -no-pie -o $(NAME)	
+run:
+	make build
+	./tetris
 bear:
 	bear -- $(CC) -Wall $(LARGS) -Wextra -pedantic -pthread -l$(LIBS) $(SRC) -no-pie -o $(NAME)
