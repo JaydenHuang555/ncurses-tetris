@@ -6,4 +6,10 @@ struct cords2d_t {
     int y;
 };
 
+struct cords3d_t {
+    int x;
+    int y;
+    int z;
+};
+
 #endif

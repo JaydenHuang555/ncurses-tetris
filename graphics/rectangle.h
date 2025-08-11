@@ -3,13 +3,15 @@
 
 #include "ncurses.h"
 #include "colorpairs.h"
+#include "cords.h"
 // TODO: replace with cords instead
 struct rectangle_t {
-    int y1; // top left
-    int x1; // top left
-    int y2; // bottom right
-    int x2; // bottom right
-
+    // int y1; // top left
+    // int x1; // top left
+    // int y2; // bottom right
+    // int x2; // bottom right
+    struct cords2d_t cords_top_left;
+    struct cords2d_t cords_bottom_right;
     char filled, visibile;
     enum colorpair_t color;
 };
