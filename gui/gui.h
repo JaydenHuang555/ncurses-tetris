@@ -5,6 +5,7 @@
 #include "rectangle.h"
 #include "pthread.h"
 #include <stdatomic.h>
+#include "stopwatch.h"
 
 struct gui_tile_info_t {
     size_t len;
@@ -16,6 +17,7 @@ struct gui_t {
     struct rectangle_t *drop_frame; 
     struct rectangle_t *next_block_frame;
     struct gui_tile_info_t tile_info;
+    struct stopwatch_t stopwatch;
     pthread_mutex_t mutex;
     atomic_short running;
 };

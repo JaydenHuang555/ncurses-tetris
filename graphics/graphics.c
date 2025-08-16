@@ -15,15 +15,19 @@
 static u0 *update_callback(void *arg) {
 	struct graphics_t *graphics = (struct graphics_t*)arg;
 	while(graphics->redrawing_thread_running) {
-		SYNC(*graphics->ncurses_mutex, wclear(graphics->drawing_window););
 		SYNC(graphics->thread_lock, {
-			for(size_t i = 0; i < graphics->rec_size; i++) 
+			for(size_t i = 0; i < graphics->rec_size; i++) {
+				if(!graphics->rec[i]->visibile) continue;
 				if(graphics->rec[i]->filled) 
 					SYNC(*graphics->ncurses_mutex, rectangle_draw_filled(graphics->rec[i], graphics->drawing_window));
 				else SYNC(*graphics->ncurses_mutex, rectangle_draw_border(graphics->rec[i], graphics->drawing_window));
+			}
 		});
 		SYNC(*graphics->ncurses_mutex, {
 			wrefresh(graphics->drawing_window);
+            copywin(graphics->drawing_window, stdscr, 0, 0, 0, 0, COLS, LINES, 0);  
+			wrefresh(stdscr);
+			wclear(graphics->drawing_window);
 		});
 		usleep(FPS_60);
 	}

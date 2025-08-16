@@ -5,8 +5,6 @@
 #include "stdio.h"
 #include "threadutils.h"
 #include "gameloop.h"
-// #include "string.h"
-#include "bitdefs.h"
 #include "stdatomic.h"
 
 #define FRAME_DELAY_USEC 16667

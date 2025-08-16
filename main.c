@@ -3,10 +3,8 @@
 #include "loops/gameloop.h"
 #include "loops/inputloop.h"
 #include "graphics/graphics.h"
-#include "log.h"
 #include "bitdefs.h"
 #include "gui/gui.h"
-#include "threadutils.h"
 
 #ifndef __linux__
 #warning "compiling for untested env"
@@ -42,8 +40,9 @@ static u0 start_scrn(u0) {
 	if(has_colors()) {
 		start_color();
 	}
-
+	curs_set(0);
 	clear();
+	raw();
 	graphics_start(&graphics, &ncurses_mutex);
 	refresh();
 	gameloop_start(&gameloop);

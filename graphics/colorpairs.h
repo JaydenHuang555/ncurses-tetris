@@ -8,6 +8,7 @@ enum colorpair_t {
    COLORPAIR_WHITE = 1,
    COLORPAIR_RED = 2,
    COLORPAIR_BLUE = 3,
+   COLORPAIR_GREEN = 4,
 };
 
 #define COLORPAIRS_INIT() {\
@@ -19,7 +20,9 @@ enum colorpair_t {
 #define COLORPAIR_ATTR(win, colorpair, block) \
 do { \
    wattron(win, COLOR_PAIR(colorpair)); \
+   wattron(win, A_BOLD);\
    block; \
+   wattroff(win, A_BOLD);\
    wattroff(win, COLOR_PAIR(colorpair));\
 } while (0)
 

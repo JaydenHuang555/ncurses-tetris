@@ -6,13 +6,13 @@
 #include "colorpairs.h"
 #include "graphics.h"
 
-#define TILE_FACE_LEN 3
-#define TILE_AREA TILE_LEN * 2
+#define TILE_FACE_HEIGHT 2
+#define TILE_FACE_WIDTH (TILE_FACE_HEIGHT * 2)
 
 struct tile_t {
     struct rectangle_t *rec; 
     struct cords2d_t cords;
-    // enum colorpair_t color;
+    s8 visible;
 };
 
 extern void tile_init(struct tile_t *tile, struct cords2d_t cords, enum colorpair_t);

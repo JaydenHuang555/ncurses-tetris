@@ -14,7 +14,8 @@ struct rectangle_t {
     enum colorpair_t color;
 };
 
-extern struct rectangle_t *rectangle_malloc_with_cords(s32 y1, s32 x1, s32 y2, s32 x2);
+extern struct rectangle_t *rectangle_malloc_with_indv_cords(s32 y1, s32 x1, s32 y2, s32 x2);
+extern struct rectangle_t *rectangle_malloc_with_cords(struct cords2d_t top_left, struct cords2d_t bottom_right);
 extern void rectangle_draw_border(struct rectangle_t*, WINDOW*);
 extern void rectangle_free(struct rectangle_t**);
 extern void rectangle_draw_filled(struct rectangle_t*, WINDOW*);
